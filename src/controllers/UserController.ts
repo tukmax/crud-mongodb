@@ -36,8 +36,12 @@ class UserController{
   public async delete(req: Request, res: Response) {
     const { id } = req.params;
     const del = await User.deleteOne({ _id: id });
-    return res.json({msg:'Usuario nao encontrado', del})
+    if(del.deletedCount == 0){
+      return res.json({msg:'Usuario nao encontrado', del})
+    }
+    return res.json({msg:'Usuario deletado', del})
+    
   }
 
 }
-export default UserController;
+export default new UserController;
